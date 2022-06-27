@@ -1,0 +1,17 @@
+dataSources:
+  - type: AWS_LAMBDA
+    name: Lambda_{FUNCTION_NAME}
+    description: 'Lambda_{FUNCTION_NAME} DataSource'
+    config:
+      functionName: {FUNCTION_NAME}
+      lambdaFunctionArn:
+        "Fn::GetAtt": [{FUNCTION_NAME_TITLED}LambdaFunction, Arn]
+      serviceRoleArn:
+        "Fn::GetAtt": [AppSyncLambdaServiceRole{STAGE_NAME}, Arn]
+      iamRoleStatements:
+        - Effect: "Allow"
+          Action:
+            - "lambda:invokeFunction"
+          Resource:
+            - "arn:aws:lambda:{REGION}:{ACCOUNT_ID}:graphql"
+            - "arn:aws:lambda:{REGION}:{ACCOUNT_ID}:graphql:*"

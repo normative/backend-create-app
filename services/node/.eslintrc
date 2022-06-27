@@ -1,0 +1,30 @@
+{
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "extends": ["eslint:recommended", ".eslintrcGoogle.js"],
+  "globals": {
+    "__appRoot": true
+  },
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "ecmaVersion": 2021,
+    "sourceType": "module"
+  },
+  "rules": {
+    "arrow-parens": ["error", "as-needed"],
+    "comma-dangle": "off",
+    "curly": ["error", "all"],
+    "guard-for-in": "off",
+    "keyword-spacing": "off",
+    "max-len": [2, {"code": 200, "tabWidth": 4, "ignoreUrls": true}],
+    "new-cap": "off",
+    "no-async-promise-executor": "off",
+    "no-extra-boolean-cast": "off",
+    "require-jsdoc": "off",
+    "semi": ["error", "never"],
+    "space-before-blocks": "off",
+    "spaced-comment": "off"
+  }
+}

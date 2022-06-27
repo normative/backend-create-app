@@ -1,0 +1,4 @@
+scalar AWSDate
+scalar AWSTime
+scalar AWSDateTime
+scalar AWSJSON

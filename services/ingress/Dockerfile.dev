@@ -1,0 +1,16 @@
+FROM envoyproxy/envoy-alpine:v1.14.4
+
+ARG ssl_certs_dir=/etc/ssl-certs
+WORKDIR $ssl_certs_dir
+
+COPY envoy-proxy.local.yaml /etc/envoy-proxy.yaml
+COPY .localhost-ssl/localhost.crt /etc/ssl-certs/localhost/localhost.crt
+COPY .localhost-ssl/localhost.key /etc/ssl-certs/localhost/localhost.key
+
+VOLUME $root_dir/localhost
+VOLUME $root_dir/certbot
+
+EXPOSE 443
+EXPOSE 80
+
+CMD /usr/local/bin/envoy -c /etc/envoy-proxy.yaml --service-cluster envoy-proxy

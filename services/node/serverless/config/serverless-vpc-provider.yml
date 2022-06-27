@@ -1,0 +1,15 @@
+provider:
+  vpc:
+    securityGroupIds:
+      - "Fn::GetAtt": [ServerlessSecurityGroup, GroupId]
+    subnetIds:
+      - Ref: ServerlessPrivateSubnetA
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - ec2:CreateNetworkInterface
+            - ec2:DescribeNetworkInterfaces
+            - ec2:DeleteNetworkInterface
+          Resource: "*"

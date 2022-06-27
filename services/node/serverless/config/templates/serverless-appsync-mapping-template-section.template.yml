@@ -1,0 +1,5 @@
+  - dataSource: Lambda_{FUNCTION_NAME}
+    type: {FUNCTION_TYPE_TITLED}
+    field: {FUNCTION_NAME_ORIG}
+    request: "{FUNCTION_REQUEST_TEMPLATE_NAME}"
+    response: "{FUNCTION_RESPONSE_TEMPLATE_NAME}"

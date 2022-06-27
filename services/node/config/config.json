@@ -1,0 +1,49 @@
+{
+  "modes": [
+    {
+      "name": "development",
+      "jwt": {
+        "secret": "é気持きもちにלעולם הבאых заведеᐅᔅᑭ ᑎᔅᑌᒥᓐᑦ ᑭ ᑎᐯᓕᒋᑫᒥᓇᐤ ᓀᔥᑕ ᑭ ᐱᒪᒋᐃᐌᒥᓇᐤ ᒋᓴᔅ ᒃᣅᔅᑦ",
+        "header": "Authorization",
+        "prefix": "Bearer"
+      },
+      "cookies": {
+        "secret": "åTUYIOWER空咯给进🦕可קר חלךף שדגכח לף/ק׳רןםΠשדג כלЦУКолдὉλογοστουθεουваолжуцкКОЛДЖᑎᐯᓕᒋहम् अपि सदा ᑫᒪᒋᐃᐌᒥᓇ"
+      },
+      "user_max_sessions": 10,
+      "passwords": {
+        "rounds": 12,
+        "min_length": 12
+      },
+      "delays": {
+        "login": 500,
+        "logout": 500,
+        "usercreate": 1000
+      },
+      "auth0_clientId": {
+      },
+      "session_expiry_time": 86400
+    },
+    {
+      "name": "test",
+      "jwt": {
+        "secret": "ᒪᐢᑮᑯᐘ ᐅᑎᑘᐏᓂᐘᐤअहम् अपि सदा क्रीडामि। इति भवतिΠαῦλος ἀπόστολος, οὐκ ἀπ’ ἀνθρώπων οὐδὲ δι’ ἀνθρώπου ἀλλὰ διὰ Ἰησοῦ Χριστοῦ καὶ θεοῦ πατρὸς τοῦ ἐγείραντος αὐτὸν ἐκ νεκρῶνAmen",
+        "header": "Authorization",
+        "prefix": "Bearer"
+      },
+      "cookies": {
+        "secret": "ß∂qwerJKL:WERxéçédille扣扣此処あここのשדגכגכדᐏᓂᐘδιατουτοσКгфыва Лдывац ᑎᐯ्रीड"
+      },
+      "passwords": {
+        "rounds": 12,
+        "min_length": 12
+      },
+      "user_max_session": 10,
+      "delays": {
+      },
+      "auth0_clientId": {
+      },
+      "session_expiry_time": 86400
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "local": {
+    "mongo": {
+      "username": "user-main",
+      "password": "AU^`ToQwm=x6F]^z>2b`GZh\"t2e7GBuv",
+      "hostname": "normativehubspot.650e0.mongodb.net",
+      "port": 27017,
+      "db": "main",
+      "hostname-srv": true,
+      "ssl":true
+    },
+    "graphql": {
+      "schema": "serverless/models/graphql/schema.graphql"
+    }
+  },
+  "devel": {
+    "mongo": {
+      "username": "user-main-dev",
+      "password": "@;(jWLGsgs>};242,g!FC%r",
+      "hostname": "medgeo-dev.wzirq.mongodb.net",
+      "port": 27017,
+      "db": "main",
+      "hostname-srv": true,
+      "ssl":true
+    },
+    "graphql": {
+      "schema": "serverless/models/graphql/schema.graphql"
+    }
+  },
+  "staging": {
+    "mongo": {
+      "username": "user-main-staging",
+      "password": "+@VcX&c&dESS2_Ahv{3c{)T",
+      "hostname": "medgeo-staging.wzirq.mongodb.net",
+      "port": 27017,
+      "db": "main",
+      "hostname-srv": true,
+      "ssl":true
+    },
+    "graphql": {
+      "schema": "serverless/models/graphql/schema.graphql"
+    }
+  }
+}

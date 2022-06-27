@@ -1,0 +1,84 @@
+org: russelgauthier
+app: medgeo-api
+service: medgeo
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: ${self:custom.stage}
+  region: us-east-1
+  iam:
+    role:
+      statements:
+        ${file(./config/serverless-vpc-provider.yml):provider.iam.role.statements}
+  vpc:
+    ${file(./config/serverless-vpc-provider.yml):provider.vpc}
+  environment:
+    API_KEY:
+      "Fn::GetAtt": [GraphQlApiKeygraphqlstaging, ApiKey]
+    GRAPHQL_API:
+      "Fn::GetAtt": [GraphQlApi, GraphQLUrl]
+    REDIS__HOST:
+      "Fn::GetAtt": [ServerlessElasticacheCluster, RedisEndpoint.Address]
+    REDIS__PORT_HOST:
+      "Fn::GetAtt": [ServerlessElasticacheCluster, RedisEndpoint.Port]
+    REGION: ${self:provider.region}
+    STAGE: ${self:custom.stage}
+functions:
+  status:
+    handler: routes/status.getStatus
+    events:
+      - http:
+          path: status
+          method: get
+          integration: lambda
+          cors: true
+  playgroundGraphql:
+    handler: routes/graphqlplayground.playgroundHandler
+    events:
+      - http:
+          path: graphqlplayground
+          method: get
+          cors: true
+  resetAll:
+    handler: routes/resets.resetAllHandler
+    events:
+      - http:
+          path: tests/resets
+          method: delete
+          integration: lambda
+          cors: true
+  resetUsers:
+    handler: routes/resets.resetUsersHandler
+    events:
+      - http:
+          path: tests/resets/users
+          method: delete
+          integration: lambda
+          cors: true
+  mutationAddUser:
+    handler: routes/graphql.addUser
+  mutationCreateProductRepresentativeUser:
+    handler: routes/graphql.createProductRepresentativeUser
+  mutationCreateProviderUser:
+    handler: routes/graphql.createProviderUser
+  mutationCreateUser:
+    handler: routes/graphql.createUser
+  mutationDeleteUser:
+    handler: routes/graphql.deleteUser
+  mutationEditUser:
+    handler: routes/graphql.editUser
+  queryGetUser:
+    handler: routes/graphql.getUser
+  queryGetUsers:
+    handler: routes/graphql.getUsers
+plugins:
+  - serverless-appsync-plugin
+resources:
+  Resources:
+    ${file(./config/envs/staging/serverless-vpc-resources.yml):resources.Resources}
+custom:
+  config:
+    ${file(./config/serverless-vpc-config-vars.yml):custom.config}
+  stage: staging
+  appSync:
+    ${file(./config/envs/staging/serverless-appsync.yml):custom.appSync}

@@ -1,0 +1,16 @@
+{
+  "{ENV_NAME}": {
+    "mongo": {
+      "username": "{MONGO__USER_MAIN}",
+      "password": "{MONGO__USER_MAIN_PWD}",
+      "hostname": "{MONGO__HOSTNAME}",
+      "port": {MONGO__PORT_HOST},
+      "db": "{MONGO__DB_NAME}",
+      "hostname-srv": {MONGO__HOSTNAME_SRV},
+      "ssl": {MONGO__SSL}
+    },
+    "graphql": {
+      "schema": "serverless/models/graphql/schema.graphql"
+    }
+  }
+}

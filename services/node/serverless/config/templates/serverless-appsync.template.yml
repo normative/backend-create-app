@@ -1,0 +1,14 @@
+custom:
+  appSync:
+    name: ${self:service}-${self:custom.stage}
+    authenticationType: API_KEY
+    apiKeys:
+      - name: graphql-{STAGE_NAME}
+        description: 'GraphQL {STAGE_NAME_CAPITALIZED} API_KEY'
+        expiresAfter: 90d
+    mappingTemplates:
+      ${file(./config/envs/{STAGE_NAME}/serverless-appsync-mapping-templates-section-generated.yml):mappingTemplates}
+    serviceRole: "AppSyncServiceRole"
+    schema: models/graphql/schema.graphql
+    dataSources:
+      ${file(./config/envs/{STAGE_NAME}/serverless-appsync-datasources-generated.yml):dataSources}

@@ -1,0 +1,73 @@
+enum User_Kind {
+    PRODUCT_REPRESENTATIVE
+    PROVIDER
+}
+
+interface UserInterface {
+    firstName: String!
+    lastName: String!
+    middleName: String
+    email: String!
+    kind: User_Kind!
+    createdAt: AWSDateTime!
+    updatedAt: AWSDateTime!
+    _id: ID!
+}
+type User implements UserInterface {
+    firstName: String!
+    lastName: String!
+    middleName: String
+    email: String!
+    kind: User_Kind!
+    createdAt: AWSDateTime!
+    updatedAt: AWSDateTime!
+    companyName: String
+    provider: Provider
+    _id: ID!
+}
+input User_Input {
+    firstName: String!
+    lastName: String!
+    middleName: String
+    email: String!
+    kind: User_Kind!
+    createdAt: AWSDateTime!
+    updatedAt: AWSDateTime!
+    companyName: String
+    provider: Provider_Input
+    _id: ID!
+}
+type ProductRepresentative_User implements UserInterface {
+    firstName: String!
+    lastName: String!
+    middleName: String
+    email: String!
+    kind: User_Kind!
+    companyName: String!
+    createdAt: AWSDateTime!
+    updatedAt: AWSDateTime!
+    _id: ID!
+}
+type Provider_User implements UserInterface {
+    firstName: String!
+    lastName: String!
+    middleName: String
+    email: String!
+    kind: User_Kind!
+    provider: Provider!
+    createdAt: AWSDateTime!
+    updatedAt: AWSDateTime!
+    _id: ID!
+}
+type Query {
+    getUser(_id: ID!): User!
+    getUsers: [User!]!
+}
+type Mutation {
+    createUser(firstName: String!, lastName: String!, middleName: String, email: String!, password: String, kind: User_Kind!, kindData: AWSJSON): User!
+    createProductRepresentativeUser(firstName: String!, lastName: String!, middleName: String, email: String!, password: String, companyName: String!): ProductRepresentative_User!
+    createProviderUser(firstName: String!, lastName: String!, middleName: String, email: String!, password: String, providerId: ID!): Provider_User!
+    deleteUser(_id: ID!): User!
+    editUser(_id: ID!, firstName: String, lastName: String, middleName: String, email: String, password: String): User!
+}
+#type Subscription {}

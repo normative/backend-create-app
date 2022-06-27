@@ -1,0 +1,10 @@
+{
+    "version": "2017-02-28",
+    "operation": "Invoke",
+    "payload": {
+        "field": "{FUNCTION_NAME_ORIG}",
+        "arguments":  $utils.toJson($context.arguments),
+        "handle" : $utils.toJson($context.identity.username),
+        "fields" : $utils.toJson($ctx.info.selectionSetList)
+    }
+}

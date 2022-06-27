@@ -1,0 +1,72 @@
+version: "3.9"
+services:
+  envoy_proxy:
+    image: russelgauthier/ax-envoy-proxy-dev
+    build:
+      context: ./services/ingress
+      dockerfile: Dockerfile.dev
+    restart: unless-stopped
+    ports:
+      - ${ENVOY_PROXY__ADMIN__PORT_HOST}:${ENVOY_PROXY__ADMIN__PORT_CONTAINER}
+      - ${ENVOY_PROXY__HTTP__PORT_HOST}:${ENVOY_PROXY__HTTP__PORT_CONTAINER}
+      - ${ENVOY_PROXY__HTTPS__PORT_HOST}:${ENVOY_PROXY__HTTPS__PORT_CONTAINER}
+    volumes:
+      - ./services/ingress/.localhost-ssl:/etc/ssl-certs/localhost
+#      - ./services/ingress/certbot:/etc/ssl-certs/certbot
+      - ./services/ingress/envoy-proxy.local.yaml:/etc/envoy-proxy.local.yaml
+  node_express:
+    image: russelgauthier/nodeexpress-dev
+    build:
+      context: ./services/node
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - ${NODE_EXPRESS__PORT_HOST}:${NODE_EXPRESS__PORT_CONTAINER}
+      - ${NODE_EXPRESS__DEBUG__PORT_HOST}:${NODE_EXPRESS__DEBUG__PORT_CONTAINER}
+    volumes:
+      - ./services/node/app.js:/usr/src/app/app.js
+      - ./services/node/config:/usr/src/app/config
+      - ./services/node/libs:/usr/src/app/libs
+      - ./services/node/middleware:/usr/src/app/middleware
+      - ./services/node/models:/usr/src/app/models
+      - ./services/node/public:/usr/src/app/public
+      - ./services/node/routes:/usr/src/app/routes
+      - ./services/node/serverless:/usr/src/app/serverless
+      - ./services/node/tests:/usr/src/app/tests
+      - ./services/node/views:/usr/src/app/views
+    environment:
+      - IS_SERVERLESS=false
+      - MONGO__DB_NAME=${MONGO__DB_NAME}
+      - MONGO__HOSTNAME=${MONGO__HOSTNAME}
+      - MONGO__HOSTNAME_SRV=${MONGO__HOSTNAME_SRV}
+      - MONGO__PORT_CONTAINER=${MONGO__PORT_CONTAINER}
+      - MONGO__SSL=${MONGO__SSL}
+      - MONGO__USER_MAIN=${MONGO__USER_MAIN}
+      - MONGO__USER_MAIN_PWD=${MONGO__USER_MAIN_PWD}
+      - NODE_CONFIG_FILE=config.json
+      - NODE__PORT_CONTAINER=${NODE_EXPRESS__PORT_HOST}
+      - REDIS__HOST=${REDIS__HOST}
+      - REDIS__PORT_CONTAINER=${REDIS__PORT_CONTAINER}
+      - REDIS__PORT_HOST=${REDIS__PORT_HOST}
+  mongo:
+    image: russelgauthier/mongo-dev
+    build:
+      context: ./services/mongo
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - ${MONGO__PORT_HOST}:${MONGO__PORT_CONTAINER}
+    volumes:
+      - "./volumes/mongo:/bitnami/mongodb"
+    environment:
+      - MONGODB_DATABASE=${MONGO__DB_NAME}
+      - MONGODB_PASSWORD=${MONGO__USER_MAIN_PWD}
+      - MONGODB_ROOT_PASSWORD=${MONGO__ROOT_PWD}
+      - MONGODB_USERNAME=${MONGO__USER_MAIN}
+  redis:
+    image: redis
+    ports:
+      - ${REDIS__PORT_HOST}:${REDIS__PORT_CONTAINER}
+    restart: unless-stopped
+    volumes:
+      - ./volumes/redis:/data

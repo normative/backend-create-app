@@ -1,0 +1,22 @@
+provider:
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource: "*"
+resources:
+  Resources:
+    RetsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self.custom.config.DYNAMODB_TABLE_NAME_EXAMPLE}
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+custom:
+  config:
+    DYNAMODB_TABLE_NAME_EXAMPLE: DynamoTable
