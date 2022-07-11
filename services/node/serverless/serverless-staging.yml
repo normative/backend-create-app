@@ -57,10 +57,6 @@ functions:
           cors: true
   mutationAddUser:
     handler: routes/graphql.addUser
-  mutationCreateProductRepresentativeUser:
-    handler: routes/graphql.createProductRepresentativeUser
-  mutationCreateProviderUser:
-    handler: routes/graphql.createProviderUser
   mutationCreateUser:
     handler: routes/graphql.createUser
   mutationDeleteUser:

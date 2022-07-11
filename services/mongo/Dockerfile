@@ -1,4 +1,4 @@
-FROM bitnami/mongodb:4.4.15-debian-10-r1
+FROM bitnami/mongodb:5.0.9-debian-11-r3
 
 ARG MONGO__PORT_CONTAINER
 

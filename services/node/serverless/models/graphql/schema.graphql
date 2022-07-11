@@ -1,6 +1,6 @@
 enum User_Kind {
-    PRODUCT_REPRESENTATIVE
-    PROVIDER
+    ADMIN
+    USER
 }
 
 interface UserInterface {
@@ -22,7 +22,6 @@ type User implements UserInterface {
     createdAt: AWSDateTime!
     updatedAt: AWSDateTime!
     companyName: String
-    provider: Provider
     _id: ID!
 }
 input User_Input {
@@ -34,29 +33,6 @@ input User_Input {
     createdAt: AWSDateTime!
     updatedAt: AWSDateTime!
     companyName: String
-    provider: Provider_Input
-    _id: ID!
-}
-type ProductRepresentative_User implements UserInterface {
-    firstName: String!
-    lastName: String!
-    middleName: String
-    email: String!
-    kind: User_Kind!
-    companyName: String!
-    createdAt: AWSDateTime!
-    updatedAt: AWSDateTime!
-    _id: ID!
-}
-type Provider_User implements UserInterface {
-    firstName: String!
-    lastName: String!
-    middleName: String
-    email: String!
-    kind: User_Kind!
-    provider: Provider!
-    createdAt: AWSDateTime!
-    updatedAt: AWSDateTime!
     _id: ID!
 }
 
@@ -66,12 +42,12 @@ type Query {
 }
 type Mutation {
     createUser(firstName: String!, lastName: String!, middleName: String, email: String!, password: String, kind: User_Kind!, kindData: AWSJSON): User!
-    createProductRepresentativeUser(firstName: String!, lastName: String!, middleName: String, email: String!, password: String, companyName: String!): ProductRepresentative_User!
-    createProviderUser(firstName: String!, lastName: String!, middleName: String, email: String!, password: String, providerId: ID!): Provider_User!
     deleteUser(_id: ID!): User!
     editUser(_id: ID!, firstName: String, lastName: String, middleName: String, email: String, password: String): User!
 }
 type Subscription {
+    subUserMutated(_id: ID): User
+    @aws_subscribe(mutations: ["editUser"])
 }
 type Schema {
     query: Query
