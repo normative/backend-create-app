@@ -111,8 +111,8 @@ services/
     app.js #starting point for execution. Do not alter
     Dockerfile #Dockerfile for Node
     package.json #packages used
-      
-docker-clean.sh
+    requirements.txt #python packages used (pip install -r requirements.txt)      
+clean.py #Cleans docker containers, volumes & images. --help for options. Default: -a -dc DOCKER_COMPOSE_FILENAME
 docker-compose.yml
 setup.sh
 ```

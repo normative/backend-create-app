@@ -53,32 +53,6 @@ const resolvers = {
 
       return userResult.toJSON()
     }, [DbConnector.MONGO]),
-    createProductRepresentativeUser: GraphqlResolver.getMutation(async(args, fields, ctx, evt) => {
-      const userDef = args
-
-      userDef.loginType = ['local']
-      userDef.kind = 'PRODUCT_REPRESENTATIVE'
-
-      const userDoc = new User(userDef)
-      const user = await userDoc.save()
-
-      return user
-    }, [DbConnector.MONGO]),
-    createProviderUser: GraphqlResolver.getMutation(async(args, fields, ctx, evt) => {
-      const userDef = args
-
-      userDef.loginType = ['local']
-      userDef.kind = 'PROVIDER'
-      userDef.provider = userDef.providerId
-
-      delete userDef['providerId']
-
-      const userDoc = new User(userDef)
-      const user = await userDoc.save()
-      const userResult = await user.populate(['provider'])
-
-      return userResult.toJSON()
-    }, [DbConnector.MONGO]),
     deleteUser: GraphqlResolver.getMutation(async(args, fields, ctx, evt) => {
       const _id = args._id
 
@@ -104,7 +78,9 @@ const resolvers = {
       return user
     }, [DbConnector.MONGO])
   },
-  Subscription: {}
+  Subscription: {
+      subUserMutated: GraphqlResolver.getSubscription('USER_MUTATED')
+  }
 }
 
 module.exports = resolvers

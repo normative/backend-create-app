@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 import argparse
 
+#TODO: This needs to be explained, put into the new init script, etc
+#TODO: The templates & the created files need to be in different locations
 parser = argparse.ArgumentParser(description="Postman Generator")
 parser.add_argument("-a", "--appname", help="App Name")
 args = parser.parse_args()
